@@ -9,9 +9,6 @@ trigger:
 pool:
   vmImage: 'ubuntu-22.04'
 
-variables:
-  buildConfiguration: 'Release'
-
 steps:
   - task: UseDotNet@2
     displayName: 'Use .NET SDK 6.x'
@@ -44,4 +41,17 @@ steps:
     inputs:
       command: 'build'
       arguments: '--no-restore --configuration release'
-      projects: '**/*.csproj'      
+      projects: '**/*.csproj'
+
+  - task: DotNetCoreCLI@1
+    displayName: 'publish the project - Release'
+    inputs:
+      command: 'publish'
+      projects: '**/*.csproj'
+      publishWebProjects: false
+      arguments: '--no-build --configuration Release --output $(Build.ArtifactstagingDirectory)/Release'
+      zipAfterPublish: true
+     
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: drop'
+    condition: succeeded()
