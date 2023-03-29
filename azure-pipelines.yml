@@ -10,7 +10,7 @@
   
   variables:
    buildConfiguration: 'Release'
-   wwwrootDir: 'Tailspin.spaceGame.Web/wwwroot'
+   wwwrootDir: 'Tailspin.SpaceGame.Web/wwwroot'
    dotnetsdkversion: '6.x'
 
 
